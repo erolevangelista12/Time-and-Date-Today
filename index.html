@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-time Date and Time</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-image: linear-gradient(to bottom right, blue, red);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #clock {
+      text-align: center;
+      background-color: #ffffff;
+      border: 5px solid yellow;
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 20);
+      color: #000000;
+    }
+
+    #time {
+      font-size: 120px;
+      font-weight: bold;
+      color: #000000;
+      margin-bottom: 30px;
+    }
+
+    #date {
+      font-size: 60px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    #day {
+      font-size: 56px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    #day.Monday {
+      color: #008000;
+    }
+
+    #day.Tuesday {
+      color: #008000;
+    }
+
+    #day.Wednesday {
+      color: #008000;
+    }
+
+    #day.Thursday {
+      color: #008000;
+    }
+
+    #day.Friday {
+      color: #008000;
+    }
+
+    #day.Saturday {
+      color: #0000ff;
+    }
+
+    #day.Sunday {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+
+<div id="clock">
+  <div id="time"></div>
+  <div id="date"></div>
+  <div id="day"></div>
+</div>
+
+<script>
+  function updateClock() {
+    const now = new Date();
+    
+    const hours = (now.getHours() % 12 || 12).toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+    const ampm = now.getHours() >= 12 ? 'PM' : 'AM';
+    const timeStr = `${hours}:${minutes} ${ampm}`;
+
+    const dateOptions = { month: 'long', day: 'numeric', year: 'numeric' };
+    const dateStr = now.toLocaleDateString('en-US', dateOptions);
+
+    const dayOptions = { weekday: 'long' };
+    const dayStr = now.toLocaleDateString('en-US', dayOptions);
+    document.getElementById('time').textContent = timeStr;
+    document.getElementById('date').textContent = dateStr;
+    document.getElementById('day').textContent = dayStr;
+    document.getElementById('day').className = dayStr;
+  }
+
+  setInterval(updateClock, 1000);
+
+  updateClock();
+</script>
+
+</body>
+</html>
